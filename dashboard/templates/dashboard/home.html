@@ -1,0 +1,90 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<br>
+<h1> Welcome {{ request.user.username }}!</h1>
+<br>
+<div class="row g-3 my-2">
+  <div class="col-md-3">
+      <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+          <div>
+              <h3 class="fs-2">59</h3>
+              <p class="fs-5 fw-bold">People</p>
+          </div>
+          <i class="fas fa-user fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+      </div>
+  </div>
+
+  <div class="col-md-3">
+      <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+          <div>
+              <h3 class="fs-2">45</h3>
+              <p class="fs-5 fw-bold">Vehicles</p>
+          </div>
+          <i class="fas fa-car fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+      </div>
+  </div>
+
+  <div class="col-md-3">
+      <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+          <div>
+              <h3 class="fs-2">59</h3>
+              <p class="fs-5 fw-bold">Reports</p>
+          </div>
+          <i class="fas fa-file-signature fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+      </div>
+  </div>
+
+  <div class="col-md-3">
+      <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+          <div>
+              <h3 class="fs-2 third-text">Good</h3>
+              <p class="fs-5 fw-bold">Productivity</p>
+          </div>
+          <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+      </div>
+  </div>
+</div>
+<br>
+<div class="input-group mb-3">
+  <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+  <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+</div>
+<br>
+<div class="container">
+
+  <div class="row">
+    <div class="col">
+      <div class="p-3 bg-white shadow-sm rounded">
+        <div class="fs-5 fw-bold">System Updates</div>
+        <ul>
+          <li>Minor Changes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 bg-white shadow-sm rounded">
+        <div class="fs-5 fw-bold">Quick Links</div>
+        <ul>
+          <li>
+            <a href="https://www.gov.uk/browse/driving/penalty-points-fines-bans" target="_blank">
+              Penalty points, fines and driving bans
+            </a>
+          </li>
+          <li>
+            <a href="https://www.gov.uk/speed-limits" target="_blank">
+              Speed Limits
+            </a>
+          </li>
+          <li>
+            <a href="https://www.gov.uk/drink-drive-limit" target="_blank">
+              Drink Drive Limit
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+</div>
+{% endblock %}
