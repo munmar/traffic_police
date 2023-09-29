@@ -1,0 +1,40 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<br>
+  <div class="container">
+    <a href="{% url 'add_vehicle' %}" class="input-group btn btn-primary fw-bolder">+ New Vehicle</a>
+    <form method="GET" class="mt-3">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="search_query" placeholder="Search by registration number">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Registration</th>
+          <th>Make</th>
+          <th>Model</th>
+          <th>Colour</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for vehicle in vehicles %}
+            <tr>
+              <td>{{ vehicle.registration }}</td>
+              <td>{{ vehicle.make }}</td>
+              <td>{{ vehicle.model }}</td>
+              <td>{{ vehicle.colour }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="4">No people found.</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
