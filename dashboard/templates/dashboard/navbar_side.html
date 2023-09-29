@@ -1,26 +1,70 @@
 {% load static %}
 
 <!-- START SIDE NAV -->
-<div class="bg-white" id="sidebar-wrapper">
+<div class="bg-white d-flex flex-column" id="sidebar-wrapper">
     <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
         <img src="{% static 'img/nottingham.png' %}" height="100" width="100" alt="logo">
     </div>
-    <div class="list-group list-group-flush my-3">
-        <a href="/dashboard/" class="list-group-item list-group-item-action bg-transparent second-text active"><i
-                class="fas fa-home me-2"></i>Home</a>
-        <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-users me-2"></i>People</a>
-        <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-car me-2"></i>Vehicles</a>
-        <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-file-signature me-2"></i>Reports</a>
-        <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-user-shield me-2"></i>Admin</a>
-        <a href="/settings/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-cog me-2"></i>Settings</a>
-        <a href="{% url 'logout' %}" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
-                class="fas fa-power-off me-2"></i>Logout</a>
+    <div class="list-group list-group-flush my-3 flex-grow-1">
+        <!-- General Dropdown -->
+        <div class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+            <i class="fas fa-home me-2"></i>General
+        </div>
+        <div id="myTab">
+            <a href="/dashboard/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">Home</a>
+        </div>
+
+        <!-- Separator Line -->
+        <hr class="my-2 mx-3">
+
+        <!-- DB Tools Dropdown -->
+        <div class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+            <i class="fas fa-database me-2"></i>DB Tools
+        </div>
+        <div id="myTab">
+            <a href="/people/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">People</a>
+            <a href="/vehicles/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">Vehicles</a>
+            <a href="/reports/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">Reports</a>
+        </div>
+
+        <!-- Separator Line -->
+        <hr class="my-2 mx-3">
+
+        <!-- Admin Tools Dropdown -->
+        <div class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+            <i class="fas fa-user-shield me-2"></i>Admin Tools
+        </div>
+        <div id="myTab">
+            <a href="/fines/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">Add Fines</a>
+            <a href="/manage/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">Manage Users</a>
+            <a href="/audit/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">Audit Log</a>
+        </div>
+
+        <!-- Separator Line -->
+        <hr class="my-2 mx-3">
+
+        <!-- Settings Dropdown -->
+        <div class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+            <i class="fas fa-cog me-2"></i>Settings
+        </div>
+        <div id="myTab">
+            <a href="/settings/" class="list-group-item list-group-item-action bg-transparent text-secondary-emphasis fw-medium">Settings</a>
+        </div>
+        
+        <!-- Separator Line -->
+        <hr class="my-2 mx-3">
+    </div>
+
+    <!-- Logout Link -->
+    <div class="mt-auto border-top">
+        <a href="{% url 'logout' %}" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+            <i class="fas fa-power-off me-2"></i>Logout
+        </a>
     </div>
 </div>
+
+
+
+
 <!-- END SIDE NAV -->
 
