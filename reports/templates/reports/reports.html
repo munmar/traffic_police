@@ -1,0 +1,39 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<br>
+  <div class="container">
+    <a href="{% url 'add_report' %}" class="input-group btn btn-primary fw-bolder">+ New Report</a>
+    <form method="GET" class="mt-3">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="search_query" placeholder="Search by ...">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Incident ID</th>
+          <th>Incident Date</th>
+          <th>Incident Report</th>
+          <th>Person Involved</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for report in reports %}
+            <tr>
+              <td>{{ report.id }}</td>
+              <td>{{ report.incident_date }}</td>
+              <td>{{ report.model }}</td>
+              <td>{{ report.colour }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="4">No people found.</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
