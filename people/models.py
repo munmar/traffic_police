@@ -9,4 +9,4 @@ class Person(models.Model):
   post_code = models.CharField('Postal Code', max_length=7)
 
   def __str__(self):
-    return f"{self.first_name} {self.last_name}"
+    return f"{self.driving_licence_number} - {self.first_name} {self.last_name}"

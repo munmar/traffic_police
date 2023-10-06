@@ -3,13 +3,13 @@ from django.db.models import Q
 from django.contrib import messages
 from .models import Incident
 from .forms import ReportForm
-from people.models import Person  # Import the Person model
-from vehicles.models import Vehicle  # Import the Vehicle model
+from people.models import Person
+from vehicles.models import Vehicle 
 
 def reports(request):
   search_query = request.GET.get('search_query', '')
   report_list = Incident.objects.filter(
-    Q(registration__icontains=search_query)
+    Q(incident_description__icontains=search_query)
   )
   current_page_name = 'Reports'
   context = {
@@ -23,7 +23,7 @@ def add_report(request):
   if request.method == 'POST':
     form = ReportForm(request.POST)
     if form.is_valid():
-      report = form.save()
+      form.save()
       return redirect('reports')
   else:
     form = ReportForm()

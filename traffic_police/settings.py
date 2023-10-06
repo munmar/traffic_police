@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'people',
     'vehicles',
     'reports',
+    'offences',
 ]
 
 MIDDLEWARE = [
