@@ -2,7 +2,39 @@
 {% block content %}
   <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Save</button>
+    <br>
+    <!-- Person Field -->
+    <div class="form-group">
+      {{ form.person.label_tag }}
+      <div class="input-group">
+        {{ form.person }}
+        <div class="input-group-append">
+          <a href="{% url 'add_person' %}" class="btn btn-primary fw-bolder">+ New Person</a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- Vehicle Field -->
+    <div class="form-group mt-1">
+      {{ form.vehicle.label_tag }}
+      <div class="input-group">
+        {{ form.vehicle }}
+        <div class="input-group-append">
+          <a href="{% url 'add_vehicle' %}" class="btn btn-primary fw-bolder">+ New Vehicle</a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- Other Fields -->
+    {{ form.offence.label_tag }}
+    {{ form.offence }}
+    <br>
+    {{ form.incident_date.label_tag }}
+    {{ form.incident_date }}
+    <br>
+    {{ form.incident_description.label_tag }}
+    {{ form.incident_description }}
+    
+    <button type="submit" class="btn btn-success mt-3">Save</button>
   </form>
 {% endblock %}

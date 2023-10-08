@@ -8,12 +8,14 @@ from vehicles.models import Vehicle
 
 def reports(request):
   search_query = request.GET.get('search_query', '')
-  report_list = Incident.objects.filter(
-    Q(incident_description__icontains=search_query)
+  report_list = Incident.objects.select_related('person').filter(
+    Q(incident_description__icontains=search_query) |
+    Q(person__first_name__icontains=search_query) |
+    Q(person__last_name__icontains=search_query)
   )
   current_page_name = 'Reports'
   context = {
-    'report': report_list,
+    'reports': report_list,
     'current_page_name': current_page_name,
   }
   return render(request, 'reports/reports.html', context)

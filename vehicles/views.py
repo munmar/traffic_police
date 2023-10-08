@@ -11,7 +11,7 @@ def vehicles(request):
   )
   current_page_name = 'Vehicles'
   context = {
-    'vehicle': vehicle_list,
+    'vehicles': vehicle_list,
     'current_page_name': current_page_name,
   }
   return render(request, 'vehicles/vehicles.html', context)

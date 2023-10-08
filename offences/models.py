@@ -12,7 +12,7 @@ class Offence(models.Model):
 class Fine(models.Model):
   fine_amount = models.DecimalField(max_digits=10, decimal_places=2)
   fine_points = models.PositiveIntegerField()
-  incident_id = models.ForeignKey('reports.Incident', on_delete=models.CASCADE)
+  incident = models.ForeignKey('reports.Incident', on_delete=models.CASCADE)
 
   def __str__(self):
-    return f"Fine for Incident ID: {self.incident_id}"
+    return f"Fine for Incident ID: {self.incident}"
