@@ -1,0 +1,19 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<br>
+<h1>Add Fine</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.incident.label_tag }}
+    {{ form.incident }}
+    <br>
+    {{ form.fine_amount.label_tag }}
+    {{ form.fine_amount }}
+    <br>
+    {{ form.fine_points.label_tag }}
+    {{ form.fine_points }}
+    <br>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'home' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

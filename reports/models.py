@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Incident(models.Model):
   person = models.ForeignKey('people.Person', on_delete=models.SET_NULL, null=True, blank=True)
@@ -8,4 +9,5 @@ class Incident(models.Model):
   incident_description = models.TextField()
 
   def __str__(self):
-    return f"{self.person} {self.offence} {self.incident_date}"
+    formatted_date = timezone.localtime(self.incident_date).strftime("%Y-%m-%d")
+    return f"Person: {self.person} || Offence: {self.offence} || Date: {formatted_date}"
