@@ -18,6 +18,7 @@
           <th>Incident Date</th>
           <th>Incident Report</th>
           <th>Person Involved</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +33,11 @@
                 {% else %}
                   N/A
                 {% endif %}
+              </td>
+              <td class="text-center align-middle">
+                <a type="button" class="btn btn-warning" href="{% url 'edit_report' report.id %}">
+                  <i class="fas fa-edit"></i>
+                </a>
               </td>
             </tr>
           {% empty %}

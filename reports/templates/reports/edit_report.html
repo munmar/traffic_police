@@ -1,0 +1,44 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+    <h1>Edit Report</h1>
+    
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="incidentNumber" class="fw-medium">Incident Number:</label>
+            <input type="text" class="form-control" id="incident_number" value="{{ form.instance.id }}" disabled>
+        </div>
+    
+        <div class="mb-3"></div>   
+        
+        <label for="person" class="fw-medium">{{ form.person.label_tag }}</label>
+        {{ form.person }}
+    
+        <div class="mb-3"></div>
+
+        <label for="vehicle" class="fw-medium">{{ form.vehicle.label_tag }}</label>
+        {{ form.vehicle }}
+        
+        <div class="mb-3"></div>
+
+        <label for="offence" class="fw-medium">{{ form.offence.label_tag }}</label>
+        {{ form.offence }}
+        
+        <div class="mb-3"></div>
+
+        <label for="incident_date" class="fw-medium">{{ form.incident_date.label_tag }}</label>
+        {{ form.incident_date }}
+        
+        <div class="mb-3"></div>
+
+        <label for="incident_date" class="fw-medium">{{ form.incident_description.label_tag }}</label>
+        {{ form.incident_description }}
+        
+        <div class="mb-3"></div>
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a href="{% url 'reports' %}" class="btn btn-danger">Cancel</a>
+    </form>
+{% endblock %}

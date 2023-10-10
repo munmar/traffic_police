@@ -1,4 +1,4 @@
-from django.shortcuts import render,  redirect
+from django.shortcuts import render,  redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib import messages
 from .models import Incident
@@ -41,3 +41,16 @@ def add_report(request):
   }
 
   return render(request, 'reports/add_report.html', context)
+
+def edit_report(request, report_id):
+  report = get_object_or_404(Incident, pk=report_id)
+
+  if request.method == 'POST':
+    form = ReportForm(request.POST, instance=report)
+    if form.is_valid():
+      form.save()
+      return redirect('reports')
+  else:
+    form = ReportForm(instance=report)
+
+  return render(request, 'reports/edit_report.html', {'report': report, 'form': form})
