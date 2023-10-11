@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 class Vehicle(models.Model):
   registration = models.CharField(max_length=7)
@@ -8,3 +9,5 @@ class Vehicle(models.Model):
 
   def __str__(self):
     return f"{self.registration}"
+
+auditlog.register(Vehicle)

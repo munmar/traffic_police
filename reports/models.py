@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from auditlog.registry import auditlog
 
 class Incident(models.Model):
   person = models.ForeignKey('people.Person', on_delete=models.SET_NULL, null=True, blank=True)
@@ -11,3 +12,5 @@ class Incident(models.Model):
   def __str__(self):
     formatted_date = timezone.localtime(self.incident_date).strftime("%Y-%m-%d")
     return f"Person: {self.person} || Offence: {self.offence} || Date: {formatted_date}"
+  
+auditlog.register(Incident)

@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 class Offence(models.Model):
   offence_description = models.TextField()
@@ -16,3 +17,5 @@ class Fine(models.Model):
 
   def __str__(self):
     return f"Fine for Incident ID: {self.incident}"
+
+auditlog.register(Fine)

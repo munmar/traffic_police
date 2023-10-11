@@ -1,0 +1,29 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+    <br>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr class="table-dark">
+                <th>Timestamp</th>
+                <th>Username</th>
+                <th>Action</th>
+                <th>Record</th>
+                <th>Field</th>
+                <th>Changes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in audit_entries %}
+                <tr>
+                    <td>{{ entry.timestamp }}</td>
+                    <td>{{ entry.actor }}</td>
+                    <td>{{ entry.action }}</td>
+                    <td>{{ entry.record_id }}</td>
+                    <td>{{ entry.table_modified }}</td>
+                    <td><strong>From:</strong> {{ entry.old_value }} <strong>To:</strong> {{ entry.old_value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

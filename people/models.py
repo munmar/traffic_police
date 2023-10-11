@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 class Person(models.Model):
   first_name = models.CharField(max_length=255)
@@ -10,3 +11,5 @@ class Person(models.Model):
 
   def __str__(self):
     return f"{self.driving_licence_number} - {self.first_name} {self.last_name}"
+
+auditlog.register(Person)

@@ -6,7 +6,9 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import PasswordChangingForm, CreateUserForm
 from django.contrib.auth.models import User
+from auditlog.models import LogEntry
 from django.db.models import Q
+import json
 
 
 # Create your views here.
@@ -75,3 +77,51 @@ def delete_user(request, user_id):
   user = get_object_or_404(User, id=user_id)
   user.delete()
   return redirect('manage')
+
+# def audit_log(request):
+#   audit_entries = LogEntry.objects.all().order_by('-timestamp')
+#   parsed_entries = []
+#   for entry in audit_entries:
+#     changes = json.loads(entry.changes)
+#     for table_modified, change_list in changes.items():
+#       parsed_entries.append({
+#         'table_modified': table_modified,
+#         'changes': ', '.join(change_list),
+#         'timestamp': entry.timestamp,
+#         'actor': entry.actor,
+#         'action': entry.action,
+#         'record_id': entry.object_id,
+#       })
+#   current_page_name = 'Audit Log'
+#   context = {
+#     'audit_entries': parsed_entries,
+#     'current_page_name': current_page_name  
+#   }
+#   return render(request, 'audit/auditlog.html', context)
+
+def audit_log(request):
+  audit_entries = LogEntry.objects.all().order_by('-timestamp')  # Retrieve audit entries
+
+  parsed_entries = []
+  for entry in audit_entries:
+    changes = json.loads(entry.changes)  # Deserialize the JSON string
+    for table_modified, change_list in changes.items():
+      old_value, new_value = change_list
+      formatted_change = f"FROM: {old_value} -> TO: {new_value}"
+      parsed_entries.append({
+        'old_value': old_value,
+        'new_value': new_value,
+        'table_modified': table_modified,
+        'changes': formatted_change,
+        'timestamp': entry.timestamp,
+        'actor': entry.actor,
+        'action': entry.action,
+        'record_id': entry.object_id,
+      })
+
+  current_page_name = 'Audit Log'
+  context = {
+    'audit_entries': parsed_entries,
+    'current_page_name': current_page_name  
+  }
+  return render(request, 'audit/auditlog.html', context)
