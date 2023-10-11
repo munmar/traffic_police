@@ -9,8 +9,9 @@ def add_fine(request):
         return redirect('home')
   else:
     form = FineForm()
-
+  current_page_name = 'Add Fines'
   context = {
     'form': form,
+    'current_page_name': current_page_name,
   }
   return render(request, 'fines/add_fine.html', context)
