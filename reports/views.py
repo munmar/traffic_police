@@ -51,7 +51,7 @@ def add_report(request):
 # Editing an existing report
 @login_required
 def edit_report(request, report_id):
-  current_page_name = 'Add New Report'
+  current_page_name = 'Edit Report'
 
   report = get_object_or_404(Incident, pk=report_id)
 
