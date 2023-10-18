@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
@@ -10,8 +11,7 @@ from auditlog.models import LogEntry
 from django.db.models import Q
 import json
 
-
-# Create your views here.
+# User authentication
 def login_user(request):
   if request.method == "POST":
     username = request.POST["username"]
@@ -27,11 +27,14 @@ def login_user(request):
   else:
     return render(request, 'authentication/login.html', {})
 
+# User logout
+@login_required
 def logout_user(request):
   logout(request)
   messages.success(request, ("You have successfully logged out!"))
   return redirect('login')
 
+# Password changing form view
 class PasswordsChangeView(PasswordChangeView):
   form_class = PasswordChangingForm
   # form_class = PasswordChangeForm
@@ -40,7 +43,10 @@ class PasswordsChangeView(PasswordChangeView):
   def form_valid(self, form):
     messages.success(self.request, "Your password has been changed successfully.")
     return super().form_valid(form)
-  
+
+# User management
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def manage(request):
   search_query = request.GET.get('search_query', '')
   user_list = User.objects.filter(
@@ -55,8 +61,11 @@ def manage(request):
   }
   return render(request, 'management/manage.html', context)
 
-User = get_user_model()
+# Add new user
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def add_user(request):
+  current_page_name = 'Create New User'
   if request.method == 'POST':
     form = CreateUserForm(request.POST)
     if form.is_valid():
@@ -69,42 +78,27 @@ def add_user(request):
   
   context = {
     'form': form,
+    'current_page_name': current_page_name,
   }
   
   return render(request, 'management/add_user.html', context)
 
+# Delete existing user
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
 def delete_user(request, user_id):
   user = get_object_or_404(User, id=user_id)
   user.delete()
   return redirect('manage')
 
-# def audit_log(request):
-#   audit_entries = LogEntry.objects.all().order_by('-timestamp')
-#   parsed_entries = []
-#   for entry in audit_entries:
-#     changes = json.loads(entry.changes)
-#     for table_modified, change_list in changes.items():
-#       parsed_entries.append({
-#         'table_modified': table_modified,
-#         'changes': ', '.join(change_list),
-#         'timestamp': entry.timestamp,
-#         'actor': entry.actor,
-#         'action': entry.action,
-#         'record_id': entry.object_id,
-#       })
-#   current_page_name = 'Audit Log'
-#   context = {
-#     'audit_entries': parsed_entries,
-#     'current_page_name': current_page_name  
-#   }
-#   return render(request, 'audit/auditlog.html', context)
-
+# Audit logging
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def audit_log(request):
-  audit_entries = LogEntry.objects.all().order_by('-timestamp')  # Retrieve audit entries
-
+  audit_entries = LogEntry.objects.all().order_by('-timestamp')
   parsed_entries = []
   for entry in audit_entries:
-    changes = json.loads(entry.changes)  # Deserialize the JSON string
+    changes = json.loads(entry.changes)
     for table_modified, change_list in changes.items():
       old_value, new_value = change_list
       formatted_change = f"FROM: {old_value} -> TO: {new_value}"
